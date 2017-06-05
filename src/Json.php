@@ -1,15 +1,17 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-
-namespace think\log\driver;
+/**
+ * josn log
+ *
+ *
+ *
+ *
+ * @copyright  Copyright (c) 2016-2017 MoJiKeJi Inc. (http://www.fashop.cn)
+ * @license    http://www.fashop.cn
+ * @link       http://www.fashop.cn
+ * @since      File available since Release v1.1
+ * @author     hanwenbo <9476400@qq.com>
+ */
+namespace fashop\log\json;
 
 use think\App;
 
