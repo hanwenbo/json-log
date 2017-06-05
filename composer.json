@@ -1,0 +1,16 @@
+{
+    "name": "hanwenbo/json-log",
+    "description": "json log debug for fashop",
+    "authors": [
+        {
+            "name": "hanwenbo",
+            "email": "9476400@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "hanwenbo\\json-log": "src/"
+        }
+    }
+}
