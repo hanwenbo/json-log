@@ -76,7 +76,7 @@ class Json {
 
 	protected function write($message, $destination, $apart = false) {
 
-		$json_data = $message;
+		$json_data = [];
 
 		//检测日志文件大小，超过配置大小则备份日志文件重新生成
 		if (is_file($destination) && floor($this->config['file_size']) <= filesize($destination)) {
@@ -94,29 +94,32 @@ class Json {
 					$current_uri = "cmd:" . implode(' ', $_SERVER['argv']);
 				}
 
-				$runtime    = round(microtime(true) - THINK_START_TIME, 10);
-				$reqs       = $runtime > 0 ? number_format(1 / $runtime, 2) : '∞';
-				$time_str   = ' [运行时间：' . number_format($runtime, 6) . 's][吞吐率：' . $reqs . 'req/s]';
-				$memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024, 2);
-				$memory_str = ' [内存消耗：' . $memory_use . 'kb]';
-				$file_load  = ' [文件加载：' . count(get_included_files()) . ']';
-
+				$runtime                  = round(microtime(true) - THINK_START_TIME, 10);
+				$reqs                     = $runtime > 0 ? number_format(1 / $runtime, 2) : '∞';
+				$time_str                 = ' [运行时间：' . number_format($runtime, 6) . 's][吞吐率：' . $reqs . 'req/s]';
+				$memory_use               = number_format((memory_get_usage() - THINK_START_MEM) / 1024, 2);
+				$memory_str               = ' [内存消耗：' . $memory_use . 'kb]';
+				$file_load                = ' [文件加载：' . count(get_included_files()) . ']';
 				$json_data['current_uri'] = $current_uri;
 				$json_data['time_str']    = $time_str;
 				$json_data['memory_str']  = $memory_str;
 				$json_data['file_load']   = $file_load;
 			}
-			$now                        = date($this->config['time_format']);
-			$server                     = isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '0.0.0.0';
-			$remote                     = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
-			$method                     = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'CLI';
-			$uri                        = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-			$json_data['load_files']    = get_included_files();
-			$json_data['now']           = $now;
-			$json_data['server']        = $server;
-			$json_data['remote']        = $remote;
-			$json_data['method']        = $method;
-			$json_data['uri']           = $uri;
+			$now                     = date($this->config['time_format']);
+			$server                  = isset($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '0.0.0.0';
+			$remote                  = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+			$method                  = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'CLI';
+			$uri                     = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+			$json_data['load_files'] = get_included_files();
+			$json_data['now']        = $now;
+			$json_data['server']     = $server;
+			$json_data['remote']     = $remote;
+			$json_data['method']     = $method;
+			$json_data['uri']        = $uri;
+			$json_data               = array_merge($json_data, $message);
+			if (!empty($json_data['api_return'])) {
+				$json_data['api_return'] = $json_data['api_return'][0];
+			}
 			$this->writed[$destination] = true;
 		}
 
