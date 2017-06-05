@@ -11,7 +11,7 @@
  * @since      File available since Release v1.1
  * @author     hanwenbo <9476400@qq.com>
  */
-namespace fashop\log\json;
+namespace fashop\log;
 
 use think\App;
 
